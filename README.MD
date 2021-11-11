@@ -20,18 +20,26 @@ https://sfdc-identity-flows.herokuapp.com/login?username=foo@acme.com&password=s
 From the above step you will get the following JSON output 
 
 - Success
-  - ```{"instanceUrl":"https://your-instance-url.my.salesforce.com","accessToken":"your-access-token"}```
-- Error
-  - ```{"Error": "Error logging in"}```
+  ```
+  {"instanceUrl":"https://your-instance-url.my.salesforce.com","accessToken":"your-access-token"}
+  ```
+  - Error
+  ```
+  {"Error": "Error logging in"}
+  ```
 
 
 ### STEP 3:
 - #### Invoke the below URL to search a SOSL query returning Accounts
 
-```FIND {${searchParam}} IN ALL FIELDS RETURNING Account```
+```
+FIND {${searchParam}} IN ALL FIELDS RETURNING Account
+```
 
 - URL
-- ```http://sfdc-identity-flows.herokuapp.com/accounts?instanceUrl=https://your-instance-url.my.salesforce.com&accessToken=your-access-token&searchParam=123456```
+```
+http://sfdc-identity-flows.herokuapp.com/accounts?instanceUrl=https://your-instance-url.my.salesforce.com&accessToken=your-access-token&searchParam=123456
+```
 
 
 
