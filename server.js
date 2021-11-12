@@ -46,10 +46,27 @@ app.get('/accounts', async (req, res, next) =>{
         accessToken: accessToken
     });
 
-    let accounts = await conn.search(`FIND {${searchParam}} IN ALL FIELDS RETURNING Account`)
+    //let accounts = await conn.search(`FIND {${searchParam}} IN ALL FIELDS RETURNING Account`)
+    let accounts = await getAccounts(conn, searchParam)
     res.json(accounts)
 
 })
+
+function getAccounts(conn, searchParam) {
+    try{
+        return new Promise((resolve, reject) => {
+            conn.search(`FIND {${searchParam}} IN ALL FIELDS RETURNING Account`, (err, res) => {
+                if(err) {
+                    return reject(err)
+                }
+                console.log(JSON.stringify(res))
+                resolve(res)
+            })
+        })
+    }catch(err) {
+        return err
+    }
+}
 
 app.get('*', (req, res, next) => {
     res.sendFile(path.join(__dirname+'/client/build/index.html'))
