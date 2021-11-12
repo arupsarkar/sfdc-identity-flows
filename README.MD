@@ -11,7 +11,7 @@ NOTE: You will need username, password + token to login
 
  - Build the below URL as per the params above and invoke in a browser
 ```
-https://sfdc-identity-flows.herokuapp.com/login?username=foo@acme.com&password=secret-pwd12345&loginUrl=https://login.salesforce.com
+https://sfdc-identity-flows.herokuapp.com/api/login?username=foo@acme.com&password=secret-pwd12345&loginUrl=https://login.salesforce.com
 ```
 
 ### STEP 2: 
@@ -38,7 +38,7 @@ FIND {${searchParam}} IN ALL FIELDS RETURNING Account
 
 - URL
 ```
-http://sfdc-identity-flows.herokuapp.com/accounts?instanceUrl=https://your-instance-url.my.salesforce.com&accessToken=your-access-token&searchParam=123456
+http://sfdc-identity-flows.herokuapp.com/api/accounts/find?instanceUrl=https://your-instance-url.my.salesforce.com&accessToken=your-access-token&searchParam=123456
 ```
 
 
