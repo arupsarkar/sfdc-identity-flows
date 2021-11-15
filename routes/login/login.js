@@ -45,7 +45,7 @@ router.get('/jwt',  urlencodedParser, async (req, res, next) => {
         //     instanceUrl: token.instance_url,
         //     accessToken: token.access_token
         // })
-        const {conn, userInfo} = await initJWT(token)
+        const {conn} = await initJWT(token)
         if(conn.accessToken) {
             console.log(conn.accessToken)
             res.json({"instanceUrl": conn.instanceUrl, "accessToken": conn.accessToken})
@@ -82,10 +82,15 @@ function initJWT(token) {
     const conn = new jsforce.Connection()
 
     return new Promise((resolve, reject) => {
-        conn.initialize(token.instance_url, token.access_token, (err, userInfo) => {
-            if(err) return reject(err)
-            resolve({conn, userInfo})
+        conn.initialize({
+            instanceUrl: token.instance_url,
+            accessToken: token.access_token
         })
+        if(conn){
+            resolve({conn})
+        }else {
+            reject({"Err": "Error connecting to server via JWT"})
+        }
     })
 
     // conn.initialize({
