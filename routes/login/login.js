@@ -2,6 +2,7 @@ const express = require('express')
 const bodyParser = require('body-parser')
 const jsforce = require("jsforce");
 const { getToken } = require('sf-jwt-token')
+const {instanceUrl, accessToken} = require("jsforce/lib/connection");
 
 require('dotenv').config()
 
@@ -39,12 +40,12 @@ router.get('/jwt',  urlencodedParser, async (req, res, next) => {
             privateKey: key.replace(/\\n/g, '\n')
         })
 
-        const conn = new jsforce.Connection()
-        conn.initialize({
-            instanceUrl: token.instance_url,
-            accessToken: token.access_token
-        })
-        // const {conn} = await initJWT(token)
+        // const conn = new jsforce.Connection()
+        // conn.initialize({
+        //     instanceUrl: token.instance_url,
+        //     accessToken: token.access_token
+        // })
+        const {conn, userInfo} = await initJWT(token)
         if(conn.accessToken) {
             console.log(conn.accessToken)
             res.json({"instanceUrl": conn.instanceUrl, "accessToken": conn.accessToken})
@@ -79,12 +80,20 @@ function init(username, password, loginUrl) {
 
 function initJWT(token) {
     const conn = new jsforce.Connection()
-    conn.initialize({
-        instanceUrl: token.instance_url,
-        accessToken: token.access_token
+
+    return new Promise((resolve, reject) => {
+        conn.initialize(token.instance_url, token.access_token, (err, userInfo) => {
+            if(err) return reject(err)
+            resolve({conn, userInfo})
+        })
     })
-    console.log(conn)
-    return conn
+
+    // conn.initialize({
+    //     instanceUrl: token.instance_url,
+    //     accessToken: token.access_token
+    // })
+    // console.log(conn)
+    // return conn
 }
 
 
