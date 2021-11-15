@@ -39,11 +39,15 @@ router.get('/jwt',  urlencodedParser, async (req, res, next) => {
             privateKey: key.replace(/\\n/g, '\n')
         })
 
-        const {conn} = initJWT(token)
+        const {conn} = await initJWT(token)
+        if(conn.accessToken) {
+            console.log(conn.accessToken)
+            res.json({"instanceUrl": conn.instanceUrl, "accessToken": conn.accessToken})
+        }else {
+            console.log('Error', 'Did not receive any access token')
+            res.json({"Error": "JWT : Error logging in"})
+        }
 
-        console.log(key)
-        console.log(conn.accessToken)
-        res.json({"instanceUrl": conn.instanceUrl, "accessToken": conn.accessToken})
     }catch(e) {
         console.log(e)
         res.json({"error": e})
