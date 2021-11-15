@@ -2,6 +2,8 @@ const express = require('express')
 const bodyParser = require('body-parser')
 const jsforce = require("jsforce");
 
+require('dotenv').config()
+
 const router = express.Router()
 // create application/json parser
 const jsonParser = bodyParser.json()
@@ -20,6 +22,16 @@ router.get('/', urlencodedParser, async (req, res, next) => {
         res.json({"Error": "Error logging in"})
     }
 
+})
+
+router.get('/jwt', (req, res, next) => {
+
+    const iss = process.env.CONSUMER_KEY
+    const sub = process.env.USERNAME
+    const aud = process.env.LOGIN_URL
+    const key = process.env.PRIVATE_KEY.replace(/\\n/g, '\n')
+    console.log(key)
+    res.json({"iss": iss, "sub": sub, "aud": aud, "key" : key})
 })
 
 function init(username, password, loginUrl) {
