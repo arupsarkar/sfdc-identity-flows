@@ -1,6 +1,7 @@
 const express = require('express')
 const bodyParser = require('body-parser')
 const jsforce = require("jsforce");
+const { getToken } = require('sf-jwt-token')
 
 require('dotenv').config()
 
@@ -30,8 +31,28 @@ router.get('/jwt',  urlencodedParser, async (req, res, next) => {
     const sub = process.env.USERNAME
     const aud = process.env.LOGIN_URL
     const key = process.env.PRIVATE_KEY
-    console.log(key)
-    res.json({"iss": iss, "sub": sub, "aud": aud, "key" : key})
+    try{
+        const token = await getToken({
+            iss: iss,
+            sub: sub,
+            aud: aud,
+            privateKey: key.replace(/\\n/g, '\n')
+        })
+
+        const conn = new jsforce.Connection()
+        conn.initialize({
+            instanceUrl: token.instance_url,
+            accessToken: token.access_token
+        })
+
+        console.log(key)
+        console.log(conn.accessToken)
+        res.json({"iss": iss, "sub": sub, "aud": aud, "key" : key})
+    }catch(e) {
+        console.log(e)
+        res.json({"error": e})
+    }
+
 })
 
 function init(username, password, loginUrl) {
