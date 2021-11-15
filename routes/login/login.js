@@ -39,15 +39,11 @@ router.get('/jwt',  urlencodedParser, async (req, res, next) => {
             privateKey: key.replace(/\\n/g, '\n')
         })
 
-        const conn = new jsforce.Connection()
-        conn.initialize({
-            instanceUrl: token.instance_url,
-            accessToken: token.access_token
-        })
+        const {conn} = initJWT(token)
 
         console.log(key)
-        console.log(conn.accessToken)
-        res.json({"iss": iss, "sub": sub, "aud": aud, "key" : key})
+        console.log(conn.toString())
+        res.json({"token": conn.toString()})
     }catch(e) {
         console.log(e)
         res.json({"error": e})
@@ -70,6 +66,16 @@ function init(username, password, loginUrl) {
             resolve({conn, userInfo})
         })
     })
+}
+
+function initJWT(token) {
+    const conn = new jsforce.Connection()
+    conn.initialize({
+        instanceUrl: token.instance_url,
+        accessToken: token.access_token
+    })
+    console.log(conn)
+    return conn
 }
 
 
