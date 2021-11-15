@@ -24,7 +24,7 @@ router.get('/', urlencodedParser, async (req, res, next) => {
 
 })
 
-router.get('/jwt', (req, res, next) => {
+router.get('/jwt',  urlencodedParser, async (req, res, next) => {
 
     const iss = process.env.CONSUMER_KEY
     const sub = process.env.USERNAME
