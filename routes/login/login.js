@@ -42,8 +42,8 @@ router.get('/jwt',  urlencodedParser, async (req, res, next) => {
         const {conn} = initJWT(token)
 
         console.log(key)
-        console.log(conn.toString())
-        res.json({"token": conn.toString()})
+        console.log(JSON.stringify(conn))
+        res.json({"token": conn})
     }catch(e) {
         console.log(e)
         res.json({"error": e})
