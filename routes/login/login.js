@@ -39,7 +39,12 @@ router.get('/jwt',  urlencodedParser, async (req, res, next) => {
             privateKey: key.replace(/\\n/g, '\n')
         })
 
-        const {conn} = await initJWT(token)
+        const conn = new jsforce.Connection()
+        conn.initialize({
+            instanceUrl: token.instance_url,
+            accessToken: token.access_token
+        })
+        // const {conn} = await initJWT(token)
         if(conn.accessToken) {
             console.log(conn.accessToken)
             res.json({"instanceUrl": conn.instanceUrl, "accessToken": conn.accessToken})
