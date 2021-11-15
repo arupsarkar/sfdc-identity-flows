@@ -29,7 +29,7 @@ router.get('/jwt', (req, res, next) => {
     const iss = process.env.CONSUMER_KEY
     const sub = process.env.USERNAME
     const aud = process.env.LOGIN_URL
-    const key = process.env.PRIVATE_KEY.replace(/\\n/g, '\n')
+    const key = process.env.PRIVATE_KEY
     console.log(key)
     res.json({"iss": iss, "sub": sub, "aud": aud, "key" : key})
 })
