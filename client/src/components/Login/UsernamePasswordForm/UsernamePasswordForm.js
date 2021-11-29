@@ -1,16 +1,20 @@
-import React, {useState} from 'react';
-import {useParams} from "react-router-dom";
+import React, {} from 'react';
 
-
+import { useSelector } from "react-redux";
 
 const UsernamePasswordForm = () => {
-    let params = useParams()
+
+    // const { state } = useContext(AuthProtocolDataContext)
+    const protocol = useSelector(state=> state)
+    // if(protocol) {
+    //     console.log(protocol.protocol.value.id)
+    //     console.log(protocol.protocol.value.protocol)
+    // }
 
     return(
         <div>
             <h2>Username : </h2>
             <h2>Password+Token : </h2>
-            {params.id}
         </div>
     )
 }
