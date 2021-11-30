@@ -31,10 +31,14 @@ const UsernamePasswordForm = () => {
 
         fetch(url, {headers})
             .then(async response => {
-                await response.json()
-            })
-            .then(data => {
-                console.log(data)
+                const data = await response.json()
+
+                if(!response.ok) {
+                    const error = (data && data.message) || response.statusText + ', code: ' + response.statusCode
+                    return Promise.reject(error)
+                }
+                console.log(data.accessToken, data.instanceUrl)
+
             })
             .catch(error => {
                 console.error('There was an error : ', error)
