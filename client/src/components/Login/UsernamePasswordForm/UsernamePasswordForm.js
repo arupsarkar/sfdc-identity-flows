@@ -34,8 +34,7 @@ const UsernamePasswordForm = () => {
                 await response.json()
             })
             .then(data => {
-                console.log(data.accessToken)
-                console.log(data.instanceUrl)
+                console.log(data)
             })
             .catch(error => {
                 console.error('There was an error : ', error)
