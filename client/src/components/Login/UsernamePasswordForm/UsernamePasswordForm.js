@@ -13,21 +13,21 @@ const UsernamePasswordForm = () => {
     // }
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
+    const [hostname, setHostname] = useState('')
 
+    const handleHostNameChange = (event) => {
+        setHostname(event.target.value)
+    }
     const handleUsernameChange = (event) => {
-
         setUsername(event.target.value)
-        //console.log(username)
     }
     const handlePasswordChange = (event) => {
         setPassword(event.target.value)
-        //console.log(password)
     }
     const handleSubmit = (event) => {
         event.preventDefault()
-        console.log(username, password)
         const headers = {'Content-Type': 'application/json'}
-        const url = `https://sfdc-identity-flows.herokuapp.com/api/login?username=${username}&password=${password}&loginUrl=https://login.salesforce.com`
+        const url = `https://sfdc-identity-flows.herokuapp.com/api/login?username=${username}&password=${password}&loginUrl=${hostname}`
 
         fetch(url, {headers})
             .then(async response => {
@@ -48,28 +48,55 @@ const UsernamePasswordForm = () => {
     return(
         <form onSubmit={handleSubmit}>
             <div>
-                <label>
-                    Username :
-                    <input type="text" name="username"
-                           onChange={handleUsernameChange}/>
-                </label>
+                <div>
+                    <label>
+                        Hostname :
+                        <input type="text" name="hostname"
+                               onChange={handleHostNameChange}/>
+                    </label>
+                </div>
+
                 <div
                     style={{
                         paddingTop: '20px',
                         boxSizing: 'content-box'
 
                     }}>
+                    <label>
+                        Username :
+                        <input type="text" name="username"
+                               onChange={handleUsernameChange}/>
+                    </label>
+                </div>
+
+                <div
+                    style={{
+                        paddingTop: '20px',
+                        boxSizing: 'content-box'
+                    }}>
 
                     <label>
-                        Password+Token :
+                        Password :
                         <input
                             type="password"
                             name="password"
                             onChange={handlePasswordChange}/>
                     </label>
+                    <div>
+                        <label> [append the token to the password.}</label>
+                    </div>
+
 
                 </div>
-                <button> Login </button>
+                <div
+                    style={{
+                        paddingTop: '20px',
+                        boxSizing: 'content-box'
+
+                    }}>
+                    <button> Login </button>
+                </div>
+
 
             </div>
         </form>
