@@ -50,53 +50,7 @@ const UsernamePasswordForm = () => {
     return(
         <form onSubmit={handleSubmit}>
             <div>
-                {/*<div>*/}
-                {/*    <label>*/}
-                {/*        Hostname :*/}
-                {/*        <input*/}
-                {/*            style={{*/}
-                {/*                width: '300px'*/}
-                {/*            }}*/}
-                {/*            type="text"*/}
-                {/*            name="hostname"*/}
-                {/*            onChange={handleHostNameChange}/>*/}
-                {/*    </label>*/}
-                {/*</div>*/}
 
-                <div
-                    style={{
-                        paddingTop: '20px',
-                        boxSizing: 'content-box'
-
-                    }}>
-                    <label>
-                        Username :
-                        <input
-                            style={{
-                                width: '300px'
-                            }}
-                            type="text"
-                            name="username"
-                            onChange={handleUsernameChange}/>
-                    </label>
-                </div>
-
-                <div
-                    style={{
-                        paddingTop: '20px',
-                        boxSizing: 'content-box'
-                    }}>
-
-                    <label>
-                        Password :
-                        <input
-                            style={{
-                                width: '300px'
-                            }}
-                            type="password"
-                            name="password"
-                            onChange={handlePasswordChange}/>
-                    </label>
                     <div style={{
                         paddingTop: '20px',
                         boxSizing: 'content-box'
@@ -108,17 +62,48 @@ const UsernamePasswordForm = () => {
                             required
                             id="outlined-required"
                             label="hostname"
-                            defaultValue="https://login.salesforce.com"
                             onChange={handleHostNameChange}
                         >
 
                         </TextField>
                     </div>
 
-                    <div>
-                        <label> [append the token to the password.]</label>
+                    <div
+                        style={{
+                            paddingTop: '20px',
+                            boxSizing: 'content-box'}}
+                    >
+                        <TextField
+                            style={{
+                                width: '300px'
+                            }}
+                            required
+                            id="outlined-required"
+                            label="username"
+                            onChange={handleUsernameChange}
+                        >
+                        </TextField>
+
                     </div>
 
+                    <div
+                        style={{
+                            paddingTop: '20px',
+                            boxSizing: 'content-box'}}
+                    >
+                        <TextField
+                            style={{
+                                width: '300px'
+                            }}
+                            required
+                            type="password"
+                            id="outlined-required"
+                            label="password+token"
+                            onChange={handlePasswordChange}
+                        >
+                        </TextField>
+
+                    </div>
 
                 </div>
                 <div
@@ -127,11 +112,11 @@ const UsernamePasswordForm = () => {
                         boxSizing: 'content-box'
 
                     }}>
-                    <Button variant="contained" disableElevation> Login </Button>
+                    <Button variant="contained" disableElevation
+                            type="submit"
+                    > Login </Button>
                 </div>
 
-
-            </div>
         </form>
 
     )
