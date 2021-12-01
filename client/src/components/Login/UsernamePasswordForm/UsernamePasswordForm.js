@@ -17,7 +17,15 @@ const UsernamePasswordForm = () => {
     const [password, setPassword] = useState('')
     const [hostname, setHostname] = useState('')
 
-
+    const handleHostNameChange = (event) => {
+        setHostname(event.target.value)
+    }
+    const handleUsernameChange = (event) => {
+        setUsername(event.target.value)
+    }
+    const handlePasswordChange = (event) => {
+        setPassword(event.target.value)
+    }
     const handleSubmit = (event) => {
         event.preventDefault()
         const headers = {'Content-Type': 'application/json'}
@@ -54,7 +62,7 @@ const UsernamePasswordForm = () => {
                             required
                             id="outlined-required"
                             label="hostname"
-                            onInput={(e) => setHostname(e.target.value)}
+                            onChange={handleHostNameChange}
                         >
 
                         </TextField>
@@ -72,7 +80,7 @@ const UsernamePasswordForm = () => {
                             required
                             id="outlined-required"
                             label="username"
-                            onInput={(e) => setUsername(e.target.value)}
+                            onChange={handleUsernameChange}
                         >
                         </TextField>
 
@@ -91,7 +99,7 @@ const UsernamePasswordForm = () => {
                             type="password"
                             id="outlined-required"
                             label="password+token"
-                            onInput={(e) => setPassword(e.target.value)}
+                            onChange={handlePasswordChange}
                         >
                         </TextField>
 
