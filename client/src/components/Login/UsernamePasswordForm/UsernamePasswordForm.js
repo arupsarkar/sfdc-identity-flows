@@ -1,5 +1,7 @@
 import React, {useState} from 'react';
 
+import {Button, TextField} from "@mui/material";
+
 import { useSelector } from "react-redux";
 import {use} from "express/lib/router";
 
@@ -48,13 +50,18 @@ const UsernamePasswordForm = () => {
     return(
         <form onSubmit={handleSubmit}>
             <div>
-                <div>
-                    <label>
-                        Hostname :
-                        <input type="text" name="hostname"
-                               onChange={handleHostNameChange}/>
-                    </label>
-                </div>
+                {/*<div>*/}
+                {/*    <label>*/}
+                {/*        Hostname :*/}
+                {/*        <input*/}
+                {/*            style={{*/}
+                {/*                width: '300px'*/}
+                {/*            }}*/}
+                {/*            type="text"*/}
+                {/*            name="hostname"*/}
+                {/*            onChange={handleHostNameChange}/>*/}
+                {/*    </label>*/}
+                {/*</div>*/}
 
                 <div
                     style={{
@@ -64,8 +71,13 @@ const UsernamePasswordForm = () => {
                     }}>
                     <label>
                         Username :
-                        <input type="text" name="username"
-                               onChange={handleUsernameChange}/>
+                        <input
+                            style={{
+                                width: '300px'
+                            }}
+                            type="text"
+                            name="username"
+                            onChange={handleUsernameChange}/>
                     </label>
                 </div>
 
@@ -78,12 +90,33 @@ const UsernamePasswordForm = () => {
                     <label>
                         Password :
                         <input
+                            style={{
+                                width: '300px'
+                            }}
                             type="password"
                             name="password"
                             onChange={handlePasswordChange}/>
                     </label>
+                    <div style={{
+                        paddingTop: '20px',
+                        boxSizing: 'content-box'
+                    }}>
+                        <TextField
+                            style={{
+                                width: '300px'
+                            }}
+                            required
+                            id="outlined-required"
+                            label="hostname"
+                            defaultValue="https://login.salesforce.com"
+                            onChange={handleHostNameChange}
+                        >
+
+                        </TextField>
+                    </div>
+
                     <div>
-                        <label> [append the token to the password.}</label>
+                        <label> [append the token to the password.]</label>
                     </div>
 
 
@@ -94,7 +127,7 @@ const UsernamePasswordForm = () => {
                         boxSizing: 'content-box'
 
                     }}>
-                    <button> Login </button>
+                    <Button variant="contained" disableElevation> Login </Button>
                 </div>
 
 
