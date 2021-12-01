@@ -5,6 +5,7 @@ import { useSelector, useDispatch } from "react-redux";
 import {save} from "./authProtocolSlice";
 import UsernamePasswordForm from "./UsernamePasswordForm/UsernamePasswordForm";
 import {Link} from "react-router-dom";
+import {Button, Fab} from "@mui/material";
 
 
 const identityFlows = [
@@ -65,30 +66,22 @@ const Login = () => {
                 <ul>
                     {identityFlows.map(flow => (
                         <li key={flow.id}>
-                            {/*<Link*/}
-                            {/*    style={{display: "block", margin: "1rem 0"}}*/}
-                            {/*    to={`/${flow.id}`}*/}
-                            {/*    key={flow.id}*/}
-                            {/*>*/}
-                            {/*    {flow.protocol}*/}
+
+                            <div style={{
+                                paddingTop: '20px',
+                            }}>
+
+                            </div>
                             <Link to={`/auth/${flow.id}`}>
-                                <button>
+                                <Fab variant="extended" color="secondary">
                                     {flow.protocol}
-                                </button>
-                                {/*<button type="button"*/}
-                                {/*        onClick={() => handleSubmit(flow)}>*/}
-                                {/*</button>*/}
-
+                                </Fab>
                             </Link>
-                            {/*<button onClick={() => handleSubmit(flow)}> {flow.protocol} </button>*/}
-
-                            {/*</Link>*/}
 
 
                         </li>
                     ))}
                 </ul>
-                {/*<UsernamePasswordForm/>*/}
             </div>
 
     );
