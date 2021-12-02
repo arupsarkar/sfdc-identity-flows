@@ -13,14 +13,14 @@ const Accounts = () => {
             <div>
                 <Grid container justifyContent={"center"}>
                     <div>
-                        Accounts: {tokens[0]}
+                        Accounts:
                     </div>
                 </Grid>
             </div>
             <Grid container justifyContent={"center"}>
                 <div className={styles.Accounts} data-testid="Accounts">
-                    {tokens.accessToken}
-                    {tokens.instanceUrl}
+                    {tokens.value.accessToken}
+                    {tokens.value.instanceUrl}
                 </div>
             </Grid>
 
