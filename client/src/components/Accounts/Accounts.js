@@ -7,8 +7,8 @@ import {Button, Grid} from "@mui/material";
 
 const Accounts = () => {
     const tokens = useSelector(selectTokens)
-    const [accessToken, setAccessToken] = useState('dummyToken')
-    const [instanceUrl, setInstanceUrl] = useState('dummyUrl')
+    const [token, setToken] = useState('dummyToken')
+    const [loginUrl, setLoginUrl] = useState('dummyUrl')
     const [loggedIn, setLoggedIn] = useState(false)
     const[accounts, setAccounts] = useState('no data')
 
@@ -26,13 +26,13 @@ const Accounts = () => {
         console.log('before ...', access_token)
         console.log('before...', instanceURL)
 
-        setAccessToken(access_token)
-        setInstanceUrl(instanceURL)
+        setToken(access_token)
+        setLoginUrl(instanceURL)
         setLoggedIn(true)
-        console.log('after...', {accessToken})
-        console.log('after...', {instanceUrl})
+        console.log('after...', token)
+        console.log('after...', loginUrl)
         const headers = {'Content-Type': 'application/json'}
-        const url = `https://sfdc-identity-flows.herokuapp.com/api/accounts/find?instanceUrl=${instanceUrl}&accessToken=${accessToken}&searchParam=123456`
+        const url = `https://sfdc-identity-flows.herokuapp.com/api/accounts/find?instanceUrl=${instanceURL}&accessToken=${access_token}&searchParam=123456`
 
         fetch(url, {headers})
             .then(async response => {
@@ -42,8 +42,9 @@ const Accounts = () => {
                     const error = (data && data.message) || response.statusText + ', code: ' + response.statusCode
                     return Promise.reject(error)
                 }
+                console.log('data before..', data)
                 setAccounts(data)
-                console.log({accounts})
+                console.log('data after..', accounts)
             })
             .catch(error => {
                 console.error('There was an error : ', error)
