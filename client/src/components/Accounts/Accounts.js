@@ -1,19 +1,43 @@
-import React from 'react';
+import React, {useState} from 'react';
 import PropTypes from 'prop-types';
 import styles from './Accounts.module.css';
 import {selectTokens} from "../Login/identityTokensSlice";
 import {useSelector} from "react-redux";
-import {Grid} from "@mui/material";
+import {Button, Grid} from "@mui/material";
 
 const Accounts = () => {
     const tokens = useSelector(selectTokens)
-    console.log({tokens})
+    const [accessToken, setAccessToken] = useState('')
+    const [instanceUrl, setInstanceUrl] = useState('')
+    const [loggedIn, setLoggedIn] = useState(false)
+
+    try{
+        if(tokens.value.accessToken && tokens.value.instanceUrl){
+            setAccessToken(tokens.value.accessToken)
+            setInstanceUrl(tokens.value.instanceUrl)
+            setLoggedIn(true)
+        }
+    }catch(error){
+        console.error(error)
+    }
+
+    const getAccounts = (accessToken, instanceUrl) => {
+        console.log(accessToken)
+        console.log(instanceUrl)
+    }
+
     return (
         <Grid container justifyContent={"center"} paddingTop={"40px"}>
             <div>
                 <Grid container justifyContent={"center"}>
                     <div>
-                        Accounts:
+                        <Button
+                            variant={"contained"}
+                            disableElevation
+                            onClick={() => {getAccounts(accessToken, instanceUrl)}}
+                        >
+                            Get Accounts
+                        </Button>
                     </div>
                 </Grid>
             </div>
