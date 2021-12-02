@@ -5,7 +5,7 @@ import { useSelector, useDispatch } from "react-redux";
 import {save} from "./authProtocolSlice";
 import UsernamePasswordForm from "./UsernamePasswordForm/UsernamePasswordForm";
 import {Link} from "react-router-dom";
-import {Button, Fab} from "@mui/material";
+import {Box, Button, Fab, Grid, makeStyles} from "@mui/material";
 
 
 const identityFlows = [
@@ -35,10 +35,6 @@ const identityFlows = [
 
 const Login = () => {
 
-    // const { dispatch } = useContext(AuthProtocolDataContext)
-
-
-
     const[identityProtocol, setIdentityProtocol] = useState('')
     const dispatch = useDispatch()
     // const { protocol } = useSelector(state=>state)
@@ -58,31 +54,40 @@ const Login = () => {
 
     return (
 
-            <div className={styles.Login} data-testid="Login">
-                <h2>
-                    Login Flows
-                </h2>
-                <br/>
-                <ul>
-                    {identityFlows.map(flow => (
-                        <li key={flow.id}>
+        <Grid container justifyContent={"center"} paddingTop={"40px"}>
+            <Box component="span" sx={{ p: 2, border: '1px dashed grey' }}>
+                <div>
+                    <Grid container justifyContent={"center"}>
+                        <h2>
+                            Login Flows
+                        </h2>
+                    </Grid>
+                    <br/>
 
-                            <div style={{
-                                paddingTop: '20px',
-                            }}>
+                    <ul>
+                        {identityFlows.map(flow => (
+                            <li key={flow.id}>
 
-                            </div>
-                            <Link to={`/auth/${flow.id}`}>
-                                <Fab variant="extended" color="secondary">
-                                    {flow.protocol}
-                                </Fab>
-                            </Link>
+                                <div style={{
+                                    paddingTop: '20px',
+                                }}>
+
+                                </div>
+                                <Link to={`/auth/${flow.id}`}>
+                                    <Fab variant="extended" color="secondary">
+                                        {flow.protocol}
+                                    </Fab>
+                                </Link>
 
 
-                        </li>
-                    ))}
-                </ul>
-            </div>
+                            </li>
+                        ))}
+                    </ul>
+
+
+                </div>
+            </Box>
+        </Grid>
 
     );
 

@@ -1,14 +1,16 @@
 import React, {useState} from 'react';
 
-import {Button, TextField} from "@mui/material";
+import {Box, Button, Grid, TextField} from "@mui/material";
 
-import { useSelector } from "react-redux";
-import {use} from "express/lib/router";
+import {useDispatch, useSelector} from "react-redux";
+import {saveTokens} from "../identityTokensSlice";
+
 
 const UsernamePasswordForm = () => {
 
     // const { state } = useContext(AuthProtocolDataContext)
     const protocol = useSelector(state=> state)
+    const dispatch = useDispatch()
     // if(protocol) {
     //     console.log(protocol.protocol.value.id)
     //     console.log(protocol.protocol.value.protocol)
@@ -40,6 +42,10 @@ const UsernamePasswordForm = () => {
                     return Promise.reject(error)
                 }
                 console.log(data.accessToken, data.instanceUrl)
+                dispatch(saveTokens({
+                    accessToken: data.accessToken,
+                    instanceUrl: data.instanceUrl
+                }))
 
             })
             .catch(error => {
@@ -48,76 +54,82 @@ const UsernamePasswordForm = () => {
 
     }
     return(
-        <form onSubmit={handleSubmit}>
-            <div>
+        <Grid container justifyContent={"center"} spacing={0} paddingTop={"40px"}>
+            <Box component="span" sx={{ p: 2, border: '1px dashed grey' }}>
+                <form onSubmit={handleSubmit}>
+                    <div>
 
-                    <div style={{
-                        paddingTop: '20px',
-                        boxSizing: 'content-box'
-                    }}>
-                        <TextField
+                        <div style={{
+                            paddingTop: '20px',
+                            boxSizing: 'content-box'
+                        }}>
+                            <TextField
+                                style={{
+                                    width: '300px'
+                                }}
+                                required
+                                id="outlined-required"
+                                label="hostname"
+                                onChange={handleHostNameChange}
+                            >
+
+                            </TextField>
+                        </div>
+
+                        <div
                             style={{
-                                width: '300px'
-                            }}
-                            required
-                            id="outlined-required"
-                            label="hostname"
-                            onChange={handleHostNameChange}
+                                paddingTop: '20px',
+                                boxSizing: 'content-box'}}
                         >
+                            <TextField
+                                style={{
+                                    width: '300px'
+                                }}
+                                required
+                                id="outlined-required"
+                                label="username"
+                                onChange={handleUsernameChange}
+                            >
+                            </TextField>
 
-                        </TextField>
+                        </div>
+
+                        <div
+                            style={{
+                                paddingTop: '20px',
+                                boxSizing: 'content-box'}}
+                        >
+                            <TextField
+                                style={{
+                                    width: '300px'
+                                }}
+                                required
+                                type="password"
+                                id="outlined-required"
+                                label="password+token"
+                                onChange={handlePasswordChange}
+                            >
+                            </TextField>
+
+                        </div>
+
                     </div>
-
                     <div
                         style={{
                             paddingTop: '20px',
-                            boxSizing: 'content-box'}}
-                    >
-                        <TextField
-                            style={{
-                                width: '300px'
-                            }}
-                            required
-                            id="outlined-required"
-                            label="username"
-                            onChange={handleUsernameChange}
-                        >
-                        </TextField>
+                            boxSizing: 'content-box'
 
+                        }}>
+                        <Button variant="contained" disableElevation
+                                type="submit"
+                        > Login </Button>
                     </div>
 
-                    <div
-                        style={{
-                            paddingTop: '20px',
-                            boxSizing: 'content-box'}}
-                    >
-                        <TextField
-                            style={{
-                                width: '300px'
-                            }}
-                            required
-                            type="password"
-                            id="outlined-required"
-                            label="password+token"
-                            onChange={handlePasswordChange}
-                        >
-                        </TextField>
+                </form>
+            </Box>
+        </Grid>
 
-                    </div>
 
-                </div>
-                <div
-                    style={{
-                        paddingTop: '20px',
-                        boxSizing: 'content-box'
-
-                    }}>
-                    <Button variant="contained" disableElevation
-                            type="submit"
-                    > Login </Button>
-                </div>
-
-        </form>
 
     )
 }
