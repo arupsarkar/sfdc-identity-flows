@@ -7,12 +7,13 @@ import {Grid} from "@mui/material";
 
 const Accounts = () => {
     const tokens = useSelector(selectTokens)
+    console.log({tokens})
     return (
         <Grid container justifyContent={"center"} paddingTop={"40px"}>
             <div>
                 <Grid container justifyContent={"center"}>
                     <div>
-                        Accounts:
+                        Accounts: {tokens[0]}
                     </div>
                 </Grid>
             </div>
