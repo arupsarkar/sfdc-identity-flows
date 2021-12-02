@@ -6,6 +6,8 @@ import {useSelector} from "react-redux";
 import {Button, Grid} from "@mui/material";
 
 const Accounts = () => {
+
+
     const tokens = useSelector(selectTokens)
     const [token, setToken] = useState('dummyToken')
     const [loginUrl, setLoginUrl] = useState('dummyUrl')
@@ -26,6 +28,9 @@ const Accounts = () => {
         console.log('before ...', access_token)
         console.log('before...', instanceURL)
 
+        this.setToken(({access_token}) => {
+
+        })
         setToken(access_token)
         setLoginUrl(instanceURL)
         setLoggedIn(true)
@@ -59,7 +64,7 @@ const Accounts = () => {
                         <Button
                             variant={"contained"}
                             disableElevation
-                            onClick={() => {getAccounts(tokens.value.accessToken, tokens.value.instanceUrl)}}
+                            onClick={() => {getAccounts(tokens.value.accessToken, tokens.value.instanceUrl).bind(this)}}
                         >
                             Get Accounts
                         </Button>
