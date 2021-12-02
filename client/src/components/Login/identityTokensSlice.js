@@ -21,5 +21,6 @@ const identityTokenSlice = createSlice({
 
 // const { actions, reducer} = authSlice
 // export const selectProtocol = state => state.protocol
+export const selectTokens = state => state.token
 export const { saveTokens } = identityTokenSlice.actions
 export default identityTokenSlice.reducer
