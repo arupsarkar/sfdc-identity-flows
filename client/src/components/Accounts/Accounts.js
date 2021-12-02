@@ -28,9 +28,6 @@ const Accounts = () => {
         console.log('before ...', access_token)
         console.log('before...', instanceURL)
 
-        setToken(access_token)
-        setLoginUrl(instanceURL)
-        setLoggedIn(true)
         console.log('after...', token)
         console.log('after...', loginUrl)
         const headers = {'Content-Type': 'application/json'}
@@ -61,7 +58,11 @@ const Accounts = () => {
                         <Button
                             variant={"contained"}
                             disableElevation
-                            onClick={() => {getAccounts(tokens.value.accessToken, tokens.value.instanceUrl).bind(this)}}
+                            onClick={() => {
+                                setToken(tokens.value.accessToken)
+                                setLoginUrl(tokens.value.instanceUrl)
+                                getAccounts(tokens.value.accessToken, tokens.value.instanceUrl)
+                            }}
                         >
                             Get Accounts
                         </Button>
