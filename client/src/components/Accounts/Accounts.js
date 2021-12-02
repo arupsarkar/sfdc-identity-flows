@@ -28,9 +28,6 @@ const Accounts = () => {
         console.log('before ...', access_token)
         console.log('before...', instanceURL)
 
-        this.setToken(({access_token}) => {
-
-        })
         setToken(access_token)
         setLoginUrl(instanceURL)
         setLoggedIn(true)
