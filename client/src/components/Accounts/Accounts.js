@@ -23,11 +23,14 @@ const Accounts = () => {
     // }
 
     const getAccounts = (access_token, instanceURL) => {
+        console.log('before ...', access_token)
+        console.log('before...', instanceURL)
+
         setAccessToken(access_token)
         setInstanceUrl(instanceURL)
         setLoggedIn(true)
-        console.log(accessToken)
-        console.log(instanceUrl)
+        console.log('after...', {accessToken})
+        console.log('after...', {instanceUrl})
         const headers = {'Content-Type': 'application/json'}
         const url = `https://sfdc-identity-flows.herokuapp.com/api/accounts/find?instanceUrl=${instanceUrl}&accessToken=${accessToken}&searchParam=123456`
 
