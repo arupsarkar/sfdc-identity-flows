@@ -7,21 +7,24 @@ import {Button, Grid} from "@mui/material";
 
 const Accounts = () => {
     const tokens = useSelector(selectTokens)
-    const [accessToken, setAccessToken] = useState('')
-    const [instanceUrl, setInstanceUrl] = useState('')
+    const [accessToken, setAccessToken] = useState('dummyToken')
+    const [instanceUrl, setInstanceUrl] = useState('dummyUrl')
     const [loggedIn, setLoggedIn] = useState(false)
 
-    try{
-        if(tokens.value.accessToken && tokens.value.instanceUrl){
-            setAccessToken(tokens.value.accessToken)
-            setInstanceUrl(tokens.value.instanceUrl)
-            setLoggedIn(true)
-        }
-    }catch(error){
-        console.error(error)
-    }
+    // try{
+    //     if(tokens.value.accessToken && tokens.value.instanceUrl){
+    //         setAccessToken(tokens.value.accessToken)
+    //         setInstanceUrl(tokens.value.instanceUrl)
+    //         setLoggedIn(true)
+    //     }
+    // }catch(error){
+    //     console.error(error)
+    // }
 
     const getAccounts = (accessToken, instanceUrl) => {
+        setAccessToken(accessToken)
+        setInstanceUrl(instanceUrl)
+        setLoggedIn(true)
         console.log(accessToken)
         console.log(instanceUrl)
     }
@@ -34,7 +37,7 @@ const Accounts = () => {
                         <Button
                             variant={"contained"}
                             disableElevation
-                            onClick={() => {getAccounts(accessToken, instanceUrl)}}
+                            onClick={() => {getAccounts(tokens.value.accessToken, tokens.value.instanceUrl)}}
                         >
                             Get Accounts
                         </Button>
