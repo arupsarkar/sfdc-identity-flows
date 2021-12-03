@@ -12,6 +12,7 @@ import OpenIdConnect from "./components/Login/OpenIdConnect/OpenIdConnect";
 import Header from "./components/Header/Header";
 import {makeStyles} from "@mui/material";
 import Accounts from "./components/Accounts/Accounts";
+import Foo from "./components/Foo/Foo";
 // import {AuthDataProvider} from "./components/Login/AuthDataProvider"
 
 
@@ -37,6 +38,7 @@ function App() {
                           <Route exact path="/auth/4" element={<JWT/>}></Route>
                           <Route exact path="/auth/5" element={<Auth0/>}></Route>
                           <Route exact path="/accounts" element={<Accounts/>}></Route>
+                          <Route exact path="/foo" element={<Foo/>}></Route>
 
                       </Routes>
                   </header>

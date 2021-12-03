@@ -27,7 +27,9 @@ const Accounts = () => {
     const getAccounts = (access_token, instanceURL) => {
         console.log('before ...', access_token)
         console.log('before...', instanceURL)
-
+        this.setToken((access_token) => {
+            console.log(token)
+        })
         console.log('after...', token)
         console.log('after...', loginUrl)
         const headers = {'Content-Type': 'application/json'}
