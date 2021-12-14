@@ -12,7 +12,21 @@ const Header = () => {
                 <Toolbar disableGutters>
 
                     <div>
+                        <Typography
+                            variant="h6"
+                            noWrap
+                            component="div"
+                            sx={{ mr: 2, display: { xs: 'none', md: 'flex' } }}
+                        >
+                            <Link to="/" style={{
+                                color: 'white'
+                            }}>
+                                Home - Login Flows
+                            </Link>
+                        </Typography>
+                    </div>
 
+                    <div>
                         <Typography
                             variant="h6"
                             noWrap
@@ -25,9 +39,6 @@ const Header = () => {
                                 Accounts
                             </Link>
                         </Typography>
-
-
-
                     </div>
 
 
@@ -45,6 +56,47 @@ const Header = () => {
                                 color: 'white'
                             }}>
                                 Foo
+                            </Link>
+                        </Typography>
+
+                    </div>
+
+
+                    <div style={{
+                        paddingLeft: "10px",
+                        color: "white",
+                        justifyContent: "flex-end"
+                    }}>
+                        <Typography
+                            variant="h6"
+                            noWrap
+                            component="div"
+                            sx={{ mr: 2, display: { xs: 'none', md: 'flex' } }}
+                        >
+                            <Link to="/Auth0UserProfile" style={{
+                                color: 'white'
+                            }}>
+                                Auth0 User Profile
+                            </Link>
+                        </Typography>
+
+                    </div>
+
+                    <div style={{
+                        paddingLeft: "10px",
+                        color: "white",
+                        justifyContent: "flex-end"
+                    }}>
+                        <Typography
+                            variant="h6"
+                            noWrap
+                            component="div"
+                            sx={{ mr: 2, display: { xs: 'none', md: 'flex' } }}
+                        >
+                            <Link to="/Auth0Logout" style={{
+                                color: 'white'
+                            }}>
+                                Auth0 Logout
                             </Link>
                         </Typography>
 

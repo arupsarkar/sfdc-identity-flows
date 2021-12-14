@@ -13,7 +13,8 @@ import Header from "./components/Header/Header";
 import {makeStyles} from "@mui/material";
 import Accounts from "./components/Accounts/Accounts";
 import Foo from "./components/Foo/Foo";
-// import {AuthDataProvider} from "./components/Login/AuthDataProvider"
+import Auth0UserProfile from "./components/Login/Auth0/Auth0UserProfile";
+import Auth0Logout from "./components/Login/Auth0/Auth0Logout";
 
 
 
@@ -39,6 +40,8 @@ function App() {
                           <Route exact path="/auth/5" element={<Auth0/>}></Route>
                           <Route exact path="/accounts" element={<Accounts/>}></Route>
                           <Route exact path="/foo" element={<Foo/>}></Route>
+                          <Route exact path="/Auth0UserProfile" element={<Auth0UserProfile/>}></Route>
+                          <Route exact path="/Auth0Logout" element={<Auth0Logout/>}></Route>
 
                       </Routes>
                   </header>
