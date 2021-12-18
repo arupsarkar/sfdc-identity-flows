@@ -20,7 +20,7 @@ router.get('/', urlencodedParser, async (req, res, next) => {
     console.log(conn)
     if(conn.accessToken) {
         let randomToken = randomString(conn.accessToken)
-        res.json({"instanceUrl": conn.instanceUrl, "accessToken": randomToken})
+        res.json({"instanceUrl": conn.instanceUrl, "randomToken": randomToken, "loginStatus": "success"})
     }else {
         res.json({"Error": "Error logging in"})
     }
@@ -41,16 +41,11 @@ router.get('/jwt',  urlencodedParser, async (req, res, next) => {
             privateKey: key.replace(/\\n/g, '\n')
         })
 
-        // const conn = new jsforce.Connection()
-        // conn.initialize({
-        //     instanceUrl: token.instance_url,
-        //     accessToken: token.access_token
-        // })
         const {conn} = await initJWT(token)
         if(conn.accessToken) {
             //console.log(conn.accessToken)
             let randomToken = randomString(conn.accessToken)
-            res.json({"instanceUrl": conn.instanceUrl, "accessToken": randomToken})
+            res.json({"instanceUrl": conn.instanceUrl, "randomToken": randomToken, "loginStatus": "success"})
         }else {
             console.log('Error', 'Did not receive any access token')
             res.json({"Error": "JWT : Error logging in"})
