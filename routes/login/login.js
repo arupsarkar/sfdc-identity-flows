@@ -19,7 +19,8 @@ router.get('/', urlencodedParser, async (req, res, next) => {
     const { conn, userInfo } = await init(username, password, loginUrl)
     console.log(conn)
     if(conn.accessToken) {
-        res.json({"instanceUrl": conn.instanceUrl, "accessToken": conn.accessToken})
+        let randomToken = randomString(conn.accessToken)
+        res.json({"instanceUrl": conn.instanceUrl, "accessToken": randomToken})
     }else {
         res.json({"Error": "Error logging in"})
     }
@@ -47,8 +48,9 @@ router.get('/jwt',  urlencodedParser, async (req, res, next) => {
         // })
         const {conn} = await initJWT(token)
         if(conn.accessToken) {
-            console.log(conn.accessToken)
-            res.json({"instanceUrl": conn.instanceUrl, "accessToken": conn.accessToken})
+            //console.log(conn.accessToken)
+            let randomToken = randomString(conn.accessToken)
+            res.json({"instanceUrl": conn.instanceUrl, "accessToken": randomToken})
         }else {
             console.log('Error', 'Did not receive any access token')
             res.json({"Error": "JWT : Error logging in"})
@@ -80,7 +82,6 @@ function init(username, password, loginUrl) {
 
 function initJWT(token) {
     const conn = new jsforce.Connection()
-
     return new Promise((resolve, reject) => {
         conn.initialize({
             instanceUrl: token.instance_url,
@@ -92,15 +93,14 @@ function initJWT(token) {
             reject({"Err": "Error connecting to server via JWT"})
         }
     })
-
-    // conn.initialize({
-    //     instanceUrl: token.instance_url,
-    //     accessToken: token.access_token
-    // })
-    // console.log(conn)
-    // return conn
 }
 
+function randomString(chars) {
+    let vLength = chars.length
+    let result = '';
+    for (let i = vLength; i > 0; --i) result += chars[Math.floor(Math.random() * chars.length)];
+    return result;
+}
 
 
 
