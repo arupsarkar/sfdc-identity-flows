@@ -1,15 +1,11 @@
 const express = require('express')
 const path = require('path')
-const cors = require('cors')
-const bodyParser = require('body-parser')
+
 const app = express();
 
 const loginRouter = require('./routes/login/login')
 const accountsRouter = require('./routes/accounts/account')
 const auth0Router = require('./routes/login/auth0/login')
-
-app.use(cors())
-app.use(bodyParser.urlencoded({extended: false}))
 
 app.use(express.static(path.join(__dirname, 'client/build')))
 app.get('/app', (req, res, next) => {
