@@ -12,8 +12,7 @@ const OAuth = () => {
     const getToken = () => {
         fetch(OAUTH_URL, {
             headers: {
-                'Content-Type': 'application/json',
-                'Access-Control-Allow-Origin': '*'
+                'Content-Type': 'application/json'
              }
         }).then(data =>{
             console.log('---> data ', data)
@@ -22,8 +21,7 @@ const OAuth = () => {
 
             fetch(CALLBACK_URL, {
                 headers: {
-                    'Content-Type': 'application/json',
-                    'Access-Control-Allow-Origin': '*'
+                    'Content-Type': 'application/json'
                 }
             }).then((data) =>{
                 console.log('---> data ', data)
