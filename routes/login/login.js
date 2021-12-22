@@ -12,6 +12,47 @@ const jsonParser = bodyParser.json()
 // create application/x-www-form-urlencoded parser
 const urlencodedParser = bodyParser.urlencoded({ extended: false })
 
+router.get('/oauth2/auth', async (req, res, next) => {
+//
+// OAuth2 client information can be shared with multiple connections.
+//
+    let oauth2 = await new jsforce.OAuth2({
+        // you can change loginUrl to connect to sandbox or prerelease env.
+        loginUrl : 'https://login.salesforce.com',
+        clientId : process.env.OAUTH2_KEY,
+        clientSecret : process.env.OAUTH2_SECRET,
+        redirectUri : `${req.protocol}://${req.get('host')}/${process.env.OAUTH2_CALLBACK_URL}`
+    });
+
+    res.redirect(oauth2.getAuthorizationUrl({scope: 'api id web'}))
+
+})
+
+
+router.get('/oauth2-token/callback', async (req, res, next) => {
+    let oauth2 = new jsforce.OAuth2({
+        // you can change loginUrl to connect to sandbox or prerelease env.
+        loginUrl : 'https://login.salesforce.com',
+        clientId : process.env.OAUTH2_KEY,
+        clientSecret : process.env.OAUTH2_SECRET,
+        redirectUri : `${req.protocol}://${req.get('host')}/${process.env.OAUTH2_CALLBACK_URL}`
+    });
+
+    const conn = new jsforce.Connection({ oauth2 : oauth2 });
+    let code = req.query.code
+    console.log('---> OAuth2 code', code)
+    await conn.authorize(code, (err, userInfo) => {
+        if(err){
+            console.log('---> Oauth2 err', err)
+            res.json({'Error': err})
+        }
+    }).then((result) =>{
+        console.log('---> OAuth2 result', result)
+        res.json({'result': result})
+    })
+
+})
+
 router.get('/', urlencodedParser, async (req, res, next) => {
     let username = req.query.username
     let password = req.query.password
