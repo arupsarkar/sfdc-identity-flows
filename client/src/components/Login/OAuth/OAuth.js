@@ -13,7 +13,8 @@ const OAuth = () => {
         fetch(OAUTH_URL, {
             headers: {
                 'Content-Type': 'application/json'
-             }
+             },
+            method: 'GET',
         }).then(data =>{
             console.log('---> data ', data)
 
@@ -22,7 +23,8 @@ const OAuth = () => {
             fetch(CALLBACK_URL, {
                 headers: {
                     'Content-Type': 'application/json'
-                }
+                },
+                method: 'GET',
             }).then((data) =>{
                 console.log('---> data ', data)
             }).catch((err) => {
