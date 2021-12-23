@@ -24,7 +24,7 @@ router.get('/oauth2/auth', async (req, res, next) => {
         redirectUri : `https://sfdc-identity-flows.herokuapp.com/${process.env.OAUTH2_CALLBACK_URL}`
     });
 
-    res.redirect(oauth2.getAuthorizationUrl({scope: 'api id web'}))
+    res.redirect(oauth2.getAuthorizationUrl({scope: 'api id web refresh_token'}))
 
 })
 

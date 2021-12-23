@@ -5,8 +5,13 @@ const cors = require('cors')
 
 
 const app = express();
-app.use(cors())
-app.options('*', cors())
+// app.use(cors())
+// app.options('*', cors())
+
+app.use((req, res, next) => {
+    res.header('Access-Control-Allow-Origin', '*');
+    next();
+});
 // Initialize session
 // parse application/x-www-form-urlencoded
 app.use(bodyParser.json());
