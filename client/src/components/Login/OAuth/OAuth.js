@@ -11,20 +11,22 @@ const OAuth = () => {
 
     const getToken = () => {
         fetch(OAUTH_URL, {
+            method: 'GET',
+            mode: 'cors',
             headers: {
                 'Content-Type': 'application/json'
              },
-            method: 'GET',
         }).then(data =>{
             console.log('---> data ', data)
 
             //once the code is received now call the callback URL to get the access token
 
             fetch(CALLBACK_URL, {
+                method: 'GET',
+                mode: 'cors',
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                method: 'GET',
             }).then((data) =>{
                 console.log('---> data ', data)
             }).catch((err) => {
