@@ -7,9 +7,17 @@ const cors = require('cors')
 const app = express();
 // app.use(cors())
 // app.options('*', cors())
-
+const allowedOrigins = ["https://login.salesforce.com", "https://sfdc-identity-flows.herokuapp.com"];
 app.use((req, res, next) => {
-    res.header('Access-Control-Allow-Origin', '*');
+    let origin = req.headers.origin;
+    if (allowedOrigins.includes(origin)) {
+        res.header("Access-Control-Allow-Origin", origin); // restrict it to the required domain
+    }
+
+    res.header(
+        "Access-Control-Allow-Headers",
+        "Origin, X-Requested-With, Content-Type, Accept"
+    );
     next();
 });
 // Initialize session
