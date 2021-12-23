@@ -21,7 +21,7 @@ router.get('/oauth2/auth', async (req, res, next) => {
         loginUrl : 'https://login.salesforce.com',
         clientId : process.env.OAUTH2_KEY,
         clientSecret : process.env.OAUTH2_SECRET,
-        redirectUri : `https://sfdc-identity-flws.herokuapp.com/${process.env.OAUTH2_CALLBACK_URL}`
+        redirectUri : `https://sfdc-identity-flows.herokuapp.com/${process.env.OAUTH2_CALLBACK_URL}`
     });
 
     res.redirect(oauth2.getAuthorizationUrl({scope: 'api id web'}))
@@ -35,7 +35,7 @@ router.get('/oauth2-token/callback', async (req, res, next) => {
         loginUrl : 'https://login.salesforce.com',
         clientId : process.env.OAUTH2_KEY,
         clientSecret : process.env.OAUTH2_SECRET,
-        redirectUri : `https://sfdc-identity-flws.herokuapp.com/${process.env.OAUTH2_CALLBACK_URL}`
+        redirectUri : `https://sfdc-identity-flows.herokuapp.com/${process.env.OAUTH2_CALLBACK_URL}`
     });
 
     const conn = new jsforce.Connection({ oauth2 : oauth2 });
