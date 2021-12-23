@@ -12,9 +12,8 @@ const OAuth = () => {
     const getToken = () => {
         fetch(OAUTH_URL, {
             method: 'GET',
-            mode: 'cors',
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/x-www-form-urlencoded'
              },
         }).then(data =>{
             console.log('---> data ', data)
@@ -23,9 +22,8 @@ const OAuth = () => {
 
             fetch(CALLBACK_URL, {
                 method: 'GET',
-                mode: 'cors',
                 headers: {
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/x-www-form-urlencoded'
                 },
             }).then((data) =>{
                 console.log('---> data ', data)
