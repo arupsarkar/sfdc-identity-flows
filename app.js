@@ -10,7 +10,7 @@ app.options('*', cors())
 const allowedOrigins = ["https://login.salesforce.com", "https://sfdc-identity-flows.herokuapp.com"];
 app.use((req, res, next) => {
     console.log('---> req.headers ', req.headers)
-    let origin = req.headers.origin;
+    let origin = req.headers.host;
     console.log('---> origin', origin)
     if (allowedOrigins.includes(origin)) {
         res.header("Access-Control-Allow-Origin", origin); // restrict it to the required domain
