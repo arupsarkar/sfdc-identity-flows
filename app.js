@@ -9,6 +9,7 @@ app.use(cors())
 app.options('*', cors())
 const allowedOrigins = ["https://login.salesforce.com", "https://sfdc-identity-flows.herokuapp.com"];
 app.use((req, res, next) => {
+    console.log('---> req.headers ', req.headers)
     let origin = req.headers.origin;
     console.log('---> origin', origin)
     if (allowedOrigins.includes(origin)) {
