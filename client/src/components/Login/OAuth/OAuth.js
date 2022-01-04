@@ -54,7 +54,7 @@ const OAuth = () => {
                                     aria-label="environment"
                                     defaultValue="prod"
                                     name="radio-buttons-group"
-                                    value={value}
+                                    value={env}
                                     onChange={handleChange}
                                 >
                                     <FormControlLabel value="prod" control={<Radio />} label="Production" />
