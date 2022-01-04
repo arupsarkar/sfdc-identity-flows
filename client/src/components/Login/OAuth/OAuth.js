@@ -5,17 +5,20 @@ import {Button, FormControl, FormControlLabel, FormLabel, Grid, Radio, RadioGrou
 const OAuth = () => {
 
 
-    const OAUTH_URL = `${window.location.origin}/api/login/oauth2/auth`
+
     const CALLBACK_URL = `${window.location.origin}/api/login/oauth2-token/callback`
 
     const [env, setEnv] = React.useState('prod');
 
     const handleChange = (event) => {
+        console.log('---> environment handle change ', event.target.value)
         setEnv(event.target.value)
     }
 
     const getToken = () => {
+        console.log('---> environment get token ', env)
         window.location.href = `${window.location.origin}/api/login/oauth2/auth/?env=${env}`
+        const OAUTH_URL = `${window.location.origin}/api/login/oauth2/auth/?env=${env}`
         fetch(OAUTH_URL, {
             method: 'GET',
             headers: {

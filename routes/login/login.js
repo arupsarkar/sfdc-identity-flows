@@ -21,7 +21,7 @@ router.get('/oauth2/auth', async (req, res, next) => {
 //
 // OAuth2 client information can be shared with multiple connections.
 //
-    const { env } = req.query.env
+    let env  = req.query.env
     let login_url
     console.log('---> env ', env)
     if (env == 'prod') {
