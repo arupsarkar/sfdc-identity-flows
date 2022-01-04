@@ -1,8 +1,8 @@
 const express = require('express')
 const bodyParser = require('body-parser')
-const jsforce = require("jsforce");
+const jsforce = require("jsforce")
 const { getToken } = require('sf-jwt-token')
-const {instanceUrl, accessToken} = require("jsforce/lib/connection");
+// const {instanceUrl, accessToken} = require("jsforce/lib/connection")
 
 require('dotenv').config()
 
@@ -12,16 +12,33 @@ const jsonParser = bodyParser.json()
 // create application/x-www-form-urlencoded parser
 const urlencodedParser = bodyParser.urlencoded({ extended: false })
 
+router.get('/heartbeat', async (req, res, next) => {
+    const today = new Date()
+    res.json({'heartbeat': today})
+})
+
 router.get('/oauth2/auth', async (req, res, next) => {
 //
 // OAuth2 client information can be shared with multiple connections.
 //
+    const { env } = req.query.code('env')
+    let login_url
+    console.log('---> env ', env)
+    if (env == 'prod') {
+        login_url = process.env.OAUTH2_LOGIN_PROD_URL
+    } else if(env == 'test') {
+        login_url = process.env.OAUTH2_LOGIN_TEST_URL
+    }
+    req.session.loginUrl = login_url
+    console.log('---> key ', process.env.OAUTH2_KEY)
+    console.log('---> secret ', process.env.OAUTH2_SECRET)
+    console.log('---> redirect URL  ', process.env.OAUTH2_CALLBACK_URL)
     let oauth2 = await new jsforce.OAuth2({
         // you can change loginUrl to connect to sandbox or prerelease env.
-        loginUrl : 'https://login.salesforce.com',
+        loginUrl : login_url,
         clientId : process.env.OAUTH2_KEY,
         clientSecret : process.env.OAUTH2_SECRET,
-        redirectUri : `https://sfdc-identity-flows.herokuapp.com/${process.env.OAUTH2_CALLBACK_URL}`
+        redirectUri : process.env.OAUTH2_CALLBACK_URL
     });
 
     res.redirect(oauth2.getAuthorizationUrl({scope: 'api id web refresh_token'}))
@@ -30,12 +47,13 @@ router.get('/oauth2/auth', async (req, res, next) => {
 
 
 router.get('/oauth2-token/callback', async (req, res, next) => {
+    console.log('---> login url ', req.session.loginUrl)
     let oauth2 = new jsforce.OAuth2({
         // you can change loginUrl to connect to sandbox or prerelease env.
-        loginUrl : 'https://login.salesforce.com',
+        loginUrl : req.session.loginUrl,
         clientId : process.env.OAUTH2_KEY,
         clientSecret : process.env.OAUTH2_SECRET,
-        redirectUri : `https://sfdc-identity-flows.herokuapp.com/${process.env.OAUTH2_CALLBACK_URL}`
+        redirectUri : process.env.OAUTH2_CALLBACK_URL
     });
 
     const conn = new jsforce.Connection({ oauth2 : oauth2 });
@@ -47,8 +65,14 @@ router.get('/oauth2-token/callback', async (req, res, next) => {
             res.json({'Error': err})
         }
     }).then((result) =>{
+        req.session.accessToken = conn.accessToken
+        req.session.instanceUrl = conn.instanceUrl
+        console.log('---> access token', conn.accessToken)
+        console.log('---> instance URL ', conn.instanceUrl)
+        console.log('---> req session values ', `${req.session.accessToken} ${req.session.instanceUrl}`)
         console.log('---> OAuth2 result', result)
-        res.json({'result': result})
+        res.redirect('/app')
+        // res.json({'result': result})
     })
 
 })

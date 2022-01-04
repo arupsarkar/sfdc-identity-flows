@@ -2,22 +2,32 @@ const express = require('express')
 const path = require('path')
 const bodyParser = require('body-parser')
 const cors = require('cors')
+const session = require('express-session')
 
 
 const app = express();
 app.use(cors())
 app.options('*', cors())
-app.use((req, res, next) => {
-    res.header("Access-Control-Allow-Origin", "https://sfdc-identity-flows.herokuapp.com"); // restrict it to the required domain
-    res.header(
-        "Access-Control-Allow-Headers","Origin, X-Requested-With, Content-Type, Accept"
-    );
-    next();
-});
+
+app.use(session(
+    {
+        secret: 'S3CRE7',
+        resave: true,
+        saveUninitialized: true,
+        cookie: { secure: true }
+    }
+))
+// app.use((req, res, next) => {
+//     res.header("Access-Control-Allow-Origin", "https://sfdc-identity-flows.herokuapp.com"); // restrict it to the required domain
+//     res.header(
+//         "Access-Control-Allow-Headers","Origin, X-Requested-With, Content-Type, Accept"
+//     );
+//     next();
+// });
 // Initialize session
 // parse application/x-www-form-urlencoded
-app.use(bodyParser.json());
-// app.use(bodyParser.urlencoded({extended: false}))
+// app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended: false}))
 
 const loginRouter = require('./routes/login/login')
 const accountsRouter = require('./routes/accounts/account')
