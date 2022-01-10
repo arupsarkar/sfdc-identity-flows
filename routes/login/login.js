@@ -3,6 +3,7 @@ const bodyParser = require('body-parser')
 const jsforce = require("jsforce")
 const { getToken } = require('sf-jwt-token')
 // const {instanceUrl, accessToken} = require("jsforce/lib/connection")
+const encryptUtils = require('../../utils-module/lib').Encrypt
 
 require('dotenv').config()
 
@@ -30,6 +31,7 @@ router.get('/oauth2/auth', async (req, res, next) => {
         login_url = process.env.OAUTH2_LOGIN_TEST_URL
     }
     req.session.loginUrl = login_url
+    console.log('---> login URL ', req.session.loginUrl)
     console.log('---> key ', process.env.OAUTH2_KEY)
     console.log('---> secret ', process.env.OAUTH2_SECRET)
     console.log('---> redirect URL  ', process.env.OAUTH2_CALLBACK_URL)
@@ -65,10 +67,13 @@ router.get('/oauth2-token/callback', async (req, res, next) => {
             res.json({'Error': err})
         }
     }).then((result) =>{
+        let encrypted_token = encryptUtils.encrypt(conn.accessToken)
+        console.log('---> encrypted access token', encrypted_token)
         req.session.accessToken = conn.accessToken
         req.session.instanceUrl = conn.instanceUrl
         console.log('---> access token', conn.accessToken)
         console.log('---> instance URL ', conn.instanceUrl)
+        console.log('---> refresh token ', conn.refreshToken)
         console.log('---> req session values ', `${req.session.accessToken} ${req.session.instanceUrl}`)
         console.log('---> OAuth2 result', result)
         res.redirect('/app')
@@ -161,6 +166,15 @@ function randomString(chars) {
     for (let i = vLength; i > 0; --i) result += chars[Math.floor(Math.random() * chars.length)];
     return result;
 }
+
+const encrypt = (payload) => {
+
+}
+
+const decrypt = (hash) => {
+
+}
+
 
 
 
