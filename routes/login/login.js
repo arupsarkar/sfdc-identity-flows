@@ -3,7 +3,7 @@ const bodyParser = require('body-parser')
 const jsforce = require("jsforce")
 const { getToken } = require('sf-jwt-token')
 // const {instanceUrl, accessToken} = require("jsforce/lib/connection")
-const encryptUtils = require('../../utils-module/lib').Encrypt
+const encryptUtils = require('../../utils-module/index').Encrypt
 
 require('dotenv').config()
 
