@@ -62,7 +62,7 @@ const OAuth = () => {
                                 >
                                     <FormControlLabel value="prod" control={<Radio />} label="Production" />
                                     <FormControlLabel value="test" control={<Radio />} label="Test" />
-\                                </RadioGroup>
+                                </RadioGroup>
 
                             </div>
 

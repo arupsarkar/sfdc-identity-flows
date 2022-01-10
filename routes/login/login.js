@@ -76,13 +76,13 @@ router.get('/oauth2-token/callback', async (req, res, next) => {
         console.log('---> refresh token ', conn.refreshToken)
         console.log('---> req session values ', `${req.session.accessToken} ${req.session.instanceUrl}`)
         console.log('---> OAuth2 result', result)
-        res.redirect('/app/accounts')
+        res.redirect('/accounts')
         // res.json({'result': result})
     })
 
 })
 
-router.get('/app/accounts', urlencodedParser, async (req, res, next) => {
+router.get('/accounts', urlencodedParser, async (req, res, next) => {
     res.send(req.session.accessToken + '/n' + req.session.instanceUrl)
 })
 
