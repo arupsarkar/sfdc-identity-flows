@@ -77,18 +77,18 @@ router.get('/oauth2-token/callback', async (req, res, next) => {
         console.log('---> req session values ', `${req.session.accessToken} ${req.session.instanceUrl}`)
         console.log('---> OAuth2 result', result)
 
-        res.status(200).json({
-            access_token: encrypted_token,
-            instance_url: conn.instanceUrl,
-            redirectUrl: '/app'
-        })
-        //res.redirect('/accounts')
+        // res.status(200).json({
+        //     access_token: encrypted_token,
+        //     instance_url: conn.instanceUrl,
+        //     redirectUrl: '/app'
+        // })
+        res.redirect('/app')
         // res.json({'result': result})
     })
 
 })
 
-router.get('/accounts', urlencodedParser, async (req, res, next) => {
+router.get('/app', urlencodedParser, async (req, res, next) => {
     res.send(req.session.accessToken + '/n' + req.session.instanceUrl)
 })
 
