@@ -82,7 +82,7 @@ router.get('/oauth2-token/callback', async (req, res, next) => {
         //     instance_url: conn.instanceUrl,
         //     redirectUrl: '/app'
         // })
-        res.redirect('https://sfdc-identity-flows.herokuapp.com/accounts')
+        res.redirect('/app')
         next()
         // res.json({'result': result})
     })
