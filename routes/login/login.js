@@ -76,7 +76,13 @@ router.get('/oauth2-token/callback', async (req, res, next) => {
         console.log('---> refresh token ', conn.refreshToken)
         console.log('---> req session values ', `${req.session.accessToken} ${req.session.instanceUrl}`)
         console.log('---> OAuth2 result', result)
-        res.redirect('/accounts')
+
+        res.status(200).json({
+            access_token: encrypted_token,
+            instance_url: conn.instanceUrl,
+            redirectUrl: '/app'
+        })
+        //res.redirect('/accounts')
         // res.json({'result': result})
     })
 
