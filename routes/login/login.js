@@ -97,8 +97,8 @@ router.get('/oauth2-token/callback', async (req, res, next) => {
         //     instance_url: conn.instanceUrl,
         //     redirectUrl: '/app'
         // })
-        sendEvent(req, res, data)
-        //res.redirect('/')
+        //sendEvent(req, res, data)
+        res.redirect('/')
         // res.json({'result': result})
     })
 

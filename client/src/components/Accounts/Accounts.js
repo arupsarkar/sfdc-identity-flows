@@ -56,24 +56,24 @@ const Accounts = () => {
             })
     }
 
-    useEffect(() => {
-        console.log('---> useEffect start ...')
-        const headers = {'Content-Type': 'application/json'}
-        const events = new EventSource('https://sfdc-identity-flows.herokuapp.com/api/login/oauth2-token/callback')
-        // fetch('https://sfdc-identity-flows.herokuapp.com/api/login/oauth2-token/callback', {headers})
-        //     .then(async response => {
-        //         const data = await response.json()
-        //         console.log('---> data ...', data)
-        //     })
-        //     .catch(async (err) => {
-        //         console.log('---> error ', err)
-        //     })
-        events.onmessage = (event) => {
-            const parsedData = JSON.parse(event.data)
-            console.log('---> data ', parsedData)
-        }
-        setListening(true)
-    }, [listening])
+    // useEffect(() => {
+    //     console.log('---> useEffect start ...')
+    //     const headers = {'Content-Type': 'application/json'}
+    //     const events = new EventSource('https://sfdc-identity-flows.herokuapp.com/api/login/oauth2-token/callback')
+    //     // fetch('https://sfdc-identity-flows.herokuapp.com/api/login/oauth2-token/callback', {headers})
+    //     //     .then(async response => {
+    //     //         const data = await response.json()
+    //     //         console.log('---> data ...', data)
+    //     //     })
+    //     //     .catch(async (err) => {
+    //     //         console.log('---> error ', err)
+    //     //     })
+    //     events.onmessage = (event) => {
+    //         const parsedData = JSON.parse(event.data)
+    //         console.log('---> data ', parsedData)
+    //     }
+    //     setListening(true)
+    // }, [listening])
 
     return (
         <Grid container justifyContent={"center"} paddingTop={"40px"}>
