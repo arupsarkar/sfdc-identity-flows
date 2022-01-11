@@ -47,7 +47,22 @@ router.get('/oauth2/auth', async (req, res, next) => {
 
 })
 
+const writeEvent = (res, sseId, data) => {
+    res.write(`id:  ${sseId}`)
+    res.write(`data: ${data}`)
+}
+const sendEvent = (req, res, data) => {
+    res.writeHead(200, {
+        'Cache-Control': 'no-cache',
+        Connection: 'keep-alive',
+        'Content-Type': 'text/event-stream',
+        "Access-Control-Allow-Origin": "*"
+    })
 
+    const sseId = new Date().toDateString();
+
+    writeEvent(res, sseId, data);
+}
 router.get('/oauth2-token/callback', async (req, res, next) => {
     console.log('---> login url ', req.session.loginUrl)
     let oauth2 = new jsforce.OAuth2({
@@ -76,13 +91,14 @@ router.get('/oauth2-token/callback', async (req, res, next) => {
         console.log('---> refresh token ', conn.refreshToken)
         console.log('---> req session values ', `${req.session.accessToken} ${req.session.instanceUrl}`)
         console.log('---> OAuth2 result', result)
-
+        const data = `[access_token: ${encrypted_token}, instance_url: ${conn.instanceUrl}]`
         // res.status(200).json({
         //     access_token: encrypted_token,
         //     instance_url: conn.instanceUrl,
         //     redirectUrl: '/app'
         // })
-        res.redirect('/app')
+        sendEvent(req, res, data)
+        res.redirect('/')
         next()
         // res.json({'result': result})
     })

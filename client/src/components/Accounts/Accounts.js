@@ -13,6 +13,7 @@ const Accounts = () => {
     const [loginUrl, setLoginUrl] = useState('dummyUrl')
     const [loggedIn, setLoggedIn] = useState(false)
     const[accounts, setAccounts] = useState('no data')
+    const [ listening, setListening ] = useState(false);
 
     // try{
     //     if(tokens.value.accessToken && tokens.value.instanceUrl){
@@ -58,16 +59,21 @@ const Accounts = () => {
     useEffect(() => {
         console.log('---> useEffect start ...')
         const headers = {'Content-Type': 'application/json'}
-        fetch('https://sfdc-identity-flows.herokuapp.com/api/login/accounts', {headers})
-            .then(async response => {
-                const data = await response.json()
-                console.log('---> data ...', data)
-            })
-            .catch(async (err) => {
-                console.log('---> error ', err)
-            })
-
-    })
+        const events = new EventSource('https://sfdc-identity-flows.herokuapp.com/api/login/oauth2-token/callback')
+        // fetch('https://sfdc-identity-flows.herokuapp.com/api/login/oauth2-token/callback', {headers})
+        //     .then(async response => {
+        //         const data = await response.json()
+        //         console.log('---> data ...', data)
+        //     })
+        //     .catch(async (err) => {
+        //         console.log('---> error ', err)
+        //     })
+        events.onmessage = (event) => {
+            const parsedData = JSON.parse(event.data)
+            console.log('---> data ', parsedData)
+        }
+        setListening(true)
+    }, [listening])
 
     return (
         <Grid container justifyContent={"center"} paddingTop={"40px"}>
