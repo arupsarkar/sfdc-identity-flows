@@ -98,17 +98,10 @@ router.get('/oauth2-token/callback', async (req, res, next) => {
         //     redirectUrl: '/app'
         // })
         sendEvent(req, res, data)
-        res.redirect('/')
-        next()
+        //res.redirect('/')
         // res.json({'result': result})
     })
 
-})
-
-router.get('/accounts', urlencodedParser, async (req, res, next) => {
-    console.log('---> /api/login/accounts access_token', req.session.accessToken  )
-    console.log('---> /api/login/accounts instance_url', req.session.instanceUrl  )
-    res.send(req.session.accessToken + '/n' + req.session.instanceUrl)
 })
 
 router.get('/', urlencodedParser, async (req, res, next) => {
